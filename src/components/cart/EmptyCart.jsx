@@ -24,7 +24,7 @@ const EmptyCart = ({
 
         <Link
           to={buttonHref}
-          className="group mt-7 inline-flex items-center gap-3 bg-[#12372A] px-6 py-4 text-sm font-semibold text-white transition hover:bg-[#0B261C]"
+          className="group mt-7 inline-flex items-center gap-3 bg-[#12372A] px-6 py-4 text-sm font-semibold !text-white transition hover:bg-[#0B261C]"
         >
           {buttonLabel}
           <ArrowRight

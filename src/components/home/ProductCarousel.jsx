@@ -4,116 +4,129 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
+  PackageOpen,
 } from "lucide-react";
+
+import ProductCard from "../product/ProductCard";
 
 const ProductCarousel = ({
   title = "Featured Collection",
   subtitle = "Explore our latest styles",
   products = [],
   viewAllHref = "/shop",
+  onAddToCart,
+  onToggleWishlist,
+  wishlist = [],
 }) => {
   const carouselRef = useRef(null);
 
   const scroll = (direction) => {
     if (!carouselRef.current) return;
 
-    carouselRef.current.scrollBy({
-      left: direction === "left" ? -320 : 320,
+    const container = carouselRef.current;
+    const scrollAmount = container.clientWidth * 0.85;
+
+    container.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
       behavior: "smooth",
     });
   };
 
   return (
-    <section className="bg-[#FAF8F2] px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        {/* Header */}
-        <div className="mb-8 flex items-end justify-between gap-4">
-          <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#B59A63]">
-              Curated For You
-            </p>
+    <section className="bc-section bg-[#FAF8F2]">
+      <div className="bc-section-inner">
+        <div className="bc-section-header">
+          <div className="bc-section-header-left">
+            <p className="bc-eyebrow">Curated for you</p>
 
-            <h2 className="text-3xl font-semibold tracking-tight text-[#12372A] sm:text-4xl">
-              {title}
-            </h2>
+            <h2 className="bc-section-title">{title}</h2>
 
-            <p className="mt-2 text-sm text-[#68736A]">
-              {subtitle}
-            </p>
+            <p className="bc-section-description">{subtitle}</p>
           </div>
 
           <Link
             to={viewAllHref}
-            className="hidden items-center gap-2 text-sm font-semibold text-[#12372A] transition hover:text-[#B59A63] sm:flex"
+            className="group hidden shrink-0 items-center gap-2 text-sm font-semibold text-[#12372A] transition-colors duration-300 hover:text-[#B59A63] sm:inline-flex"
           >
             View All
-            <ArrowRight size={16} />
+            <ArrowRight
+              size={16}
+              strokeWidth={1.7}
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            />
           </Link>
         </div>
 
-        {/* Carousel Controls */}
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => scroll("left")}
-            aria-label="Previous products"
-            className="absolute left-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#12372A] shadow-md transition hover:bg-[#12372A] hover:text-white md:flex"
-          >
-            <ChevronLeft size={20} />
-          </button>
+        {products.length === 0 ? (
+          <div className="flex min-h-60 flex-col items-center justify-center border border-dashed border-[#DCE2D8] bg-[#F1F3EC] px-6 text-center">
+            <PackageOpen
+              size={34}
+              strokeWidth={1.3}
+              className="mb-3 text-[#68736A]"
+              aria-hidden="true"
+            />
 
-          <div
-            ref={carouselRef}
-            className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-4"
-          >
-            {products.map((product) => (
-              <article
-                key={product.id}
-                className="w-full min-w-[260px] snap-start overflow-hidden rounded-sm bg-white sm:min-w-[280px] lg:min-w-[300px]"
-              >
-                <Link to={product.href || `/product/${product.slug || product.id}`}>
-                  <div className="aspect-[3/4] overflow-hidden bg-[#F1F3EC]">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="h-full w-full object-cover transition duration-500 hover:scale-105"
-                    />
-                  </div>
+            <h3 className="text-base font-semibold text-[#12372A]">
+              Products coming soon
+            </h3>
 
-                  <div className="p-4">
-                    <p className="text-xs uppercase tracking-wider text-[#68736A]">
-                      {product.category}
-                    </p>
-
-                    <h3 className="mt-1 text-sm font-semibold text-[#202923]">
-                      {product.name}
-                    </h3>
-
-                    <p className="mt-2 text-sm font-semibold text-[#12372A]">
-                      ₹{product.price?.toLocaleString("en-IN")}
-                    </p>
-                  </div>
-                </Link>
-              </article>
-            ))}
+            <p className="mt-2 max-w-sm text-sm leading-6 text-[#68736A]">
+              We are preparing a refined selection of essentials for you.
+            </p>
           </div>
+        ) : (
+          <div className="relative min-w-0">
+            <button
+              type="button"
+              onClick={() => scroll("left")}
+              aria-label="Previous products"
+              className="absolute left-2 top-[38%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#12372A] shadow-md transition-colors duration-300 hover:bg-[#12372A] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63] md:flex lg:left-[-18px]"
+            >
+              <ChevronLeft size={19} strokeWidth={1.7} />
+            </button>
 
-          <button
-            type="button"
-            onClick={() => scroll("right")}
-            aria-label="Next products"
-            className="absolute right-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#12372A] shadow-md transition hover:bg-[#12372A] hover:text-white md:flex"
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
+            <div
+              ref={carouselRef}
+              className="bc-horizontal-scroll -mx-1 flex gap-4 px-1 pb-4 sm:gap-5"
+            >
+              {products.map((product, index) => (
+                <div
+                  key={product.id || product.slug || index}
+                  className="w-[82vw] min-w-[82vw] snap-start sm:w-[45vw] sm:min-w-[45vw] md:w-[31vw] md:min-w-[31vw] lg:w-[calc((100%-60px)/4)] lg:min-w-[calc((100%-60px)/4)]"
+                >
+                  <ProductCard
+                    product={product}
+                    onAddToCart={onAddToCart}
+                    onToggleWishlist={onToggleWishlist}
+                    isWishlisted={wishlist.includes(product.id)}
+                  />
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => scroll("right")}
+              aria-label="Next products"
+              className="absolute right-2 top-[38%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#12372A] shadow-md transition-colors duration-300 hover:bg-[#12372A] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63] md:flex lg:right-[-18px]"
+            >
+              <ChevronRight size={19} strokeWidth={1.7} />
+            </button>
+          </div>
+        )}
 
         <Link
           to={viewAllHref}
-          className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#12372A] transition hover:text-[#B59A63] sm:hidden"
+          className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#12372A] transition-colors duration-300 hover:text-[#B59A63] sm:hidden"
         >
           View All
-          <ArrowRight size={16} />
+          <ArrowRight
+            size={16}
+            strokeWidth={1.7}
+            aria-hidden="true"
+            className="transition-transform duration-300 group-hover:translate-x-1"
+          />
         </Link>
       </div>
     </section>

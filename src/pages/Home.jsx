@@ -57,7 +57,8 @@ const featuredProducts = [
 
 const Home = () => {
   return (
-    <div className="bg-[#FAF8F2]">
+    <main className="min-h-screen min-w-0 overflow-x-hidden bg-[#FAF8F2]">
+      {/* Hero */}
       <HeroSection
         eyebrow="BLACK CREED / MODERN HERITAGE"
         title="Wear Your Own Legacy"
@@ -73,8 +74,10 @@ const Home = () => {
         backgroundImage="/images/hero-banner.jpg"
       />
 
+      {/* Categories */}
       <CategoryGrid />
 
+      {/* Featured Products */}
       <ProductCarousel
         title="Featured Pieces"
         subtitle="Everyday essentials with a refined edge."
@@ -82,8 +85,10 @@ const Home = () => {
         viewAllHref="/shop"
       />
 
+      {/* Brand Story */}
       <BrandStory />
 
+      {/* Collection Banner */}
       <CollectionBanner
         eyebrow="THE NEW SEASON"
         title="A New Chapter in Everyday Dressing"
@@ -93,8 +98,9 @@ const Home = () => {
         image="/images/collection-banner.jpg"
       />
 
+      {/* Editorial */}
       <EditorialSection />
-    </div>
+    </main>
   );
 };
 

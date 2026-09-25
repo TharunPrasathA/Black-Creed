@@ -30,7 +30,7 @@ const Account = () => {
 
           <Link
             to="/login"
-            className="mt-5 inline-block rounded-lg bg-[#12372A] px-6 py-3 text-sm font-semibold text-white"
+            className="mt-5 inline-block rounded-lg bg-[#12372A] px-6 py-3 text-sm font-semibold !text-white"
           >
             Sign In
           </Link>

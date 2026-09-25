@@ -1,5 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ImageOff } from "lucide-react";
+
+const DEFAULT_HERO_IMAGE =
+  "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=2200&q=85";
 
 const HeroSection = ({
   eyebrow = "THE MODERN HERITAGE COLLECTION",
@@ -13,54 +17,79 @@ const HeroSection = ({
     label: "Explore New Arrivals",
     href: "/shop?category=new-arrivals",
   },
-  backgroundImage = "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=2200&q=85",
+  backgroundImage = DEFAULT_HERO_IMAGE,
 }) => {
+  const [imageError, setImageError] = useState(false);
+
+  const imageSource = backgroundImage || DEFAULT_HERO_IMAGE;
+
   return (
-    <section className="relative isolate min-h-[680px] overflow-hidden bg-[#12372A] text-white">
+    <section className="bc-hero">
       {/* Background Image */}
-      <img
-        src={backgroundImage}
-        alt="Black Creed fashion collection"
-        className="absolute inset-0 -z-20 h-full w-full object-cover"
-      />
+      {!imageError && (
+        <img
+          src={imageSource}
+          alt="Black Creed fashion collection"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          onError={() => setImageError(true)}
+          className="bc-hero-image"
+        />
+      )}
 
-      {/* Overlay */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0B261C]/95 via-[#12372A]/70 to-[#12372A]/20" />
+      {/* Dark Overlay */}
+      <div className="bc-hero-overlay" aria-hidden="true" />
 
-      <div className="mx-auto flex min-h-[680px] max-w-7xl items-center px-6 py-20 sm:px-10 lg:px-12">
-        <div className="max-w-2xl">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-[#D8C79F]">
-            {eyebrow}
-          </p>
+      {/* Fallback Image Status */}
+      {imageError && (
+        <div
+          className="absolute inset-0 flex items-center justify-center bg-[#0B261C]"
+          aria-hidden="true"
+        >
+          <ImageOff size={42} strokeWidth={1} className="text-white/10" />
+        </div>
+      )}
 
-          <h1 className="whitespace-pre-line text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-8xl">
-            {title}
-          </h1>
+      {/* Hero Content */}
+      <div className="bc-container relative z-10">
+        <div className="bc-hero-content">
+          {/* Eyebrow */}
+          <p className="bc-hero-eyebrow">{eyebrow}</p>
 
-          <p className="mt-7 max-w-lg text-base leading-7 text-white/80 sm:text-lg">
-            {description}
-          </p>
+          {/* Heading */}
+          <h1 className="bc-hero-title whitespace-pre-line">{title}</h1>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          {/* Description */}
+          <p className="bc-hero-description">{description}</p>
+
+          {/* Action Buttons */}
+          <div className="bc-hero-actions">
             <Link
               to={primaryAction.href}
-              className="group inline-flex items-center justify-center gap-3 bg-[#FAF8F2] px-6 py-4 text-sm font-semibold text-[#12372A] transition hover:bg-[#B59A63]"
+              className="bc-hero-primary-button group"
             >
-              {primaryAction.label}
+              <span>{primaryAction.label}</span>
+
               <ArrowUpRight
                 size={18}
-                className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                strokeWidth={1.7}
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
               />
             </Link>
 
             <Link
               to={secondaryAction.href}
-              className="group inline-flex items-center justify-center gap-3 border border-white/50 px-6 py-4 text-sm font-semibold text-white transition hover:border-white hover:bg-white hover:text-[#12372A]"
+              className="bc-hero-secondary-button group"
             >
-              {secondaryAction.label}
+              <span>{secondaryAction.label}</span>
+
               <ArrowUpRight
                 size={18}
-                className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                strokeWidth={1.7}
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
               />
             </Link>
           </div>
@@ -68,11 +97,15 @@ const HeroSection = ({
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/70 md:flex">
-        <span className="text-[10px] uppercase tracking-[0.3em]">
-          Discover
-        </span>
-        <ChevronDown size={18} className="animate-bounce" />
+      <div className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/70 md:flex">
+        <span className="text-[10px] uppercase tracking-[0.3em]">Discover</span>
+
+        <ChevronDown
+          size={18}
+          strokeWidth={1.5}
+          aria-hidden="true"
+          className="animate-bounce"
+        />
       </div>
     </section>
   );
