@@ -10,24 +10,60 @@ const defaultFilters = {
 };
 
 const categoryOptions = [
-  { label: "Shirts", value: "shirts" },
-  { label: "T-Shirts", value: "t-shirts" },
-  { label: "Trousers", value: "trousers" },
-  { label: "Outerwear", value: "outerwear" },
+  {
+    label: "Formal Shirts",
+    value: "formal",
+  },
+  {
+    label: "Casual Shirts",
+    value: "casual",
+  },
+  {
+    label: "Traditional Shirts",
+    value: "traditional",
+  },
 ];
 
 const sizeOptions = ["XS", "S", "M", "L", "XL", "XXL"];
 
 const colorOptions = [
-  { label: "Black", value: "black", color: "#111111" },
-  { label: "White", value: "white", color: "#FFFFFF" },
-  { label: "Sage Green", value: "sage-green", color: "#A8B5A2" },
-  { label: "Deep Forest", value: "deep-forest", color: "#12372A" },
-  { label: "Beige", value: "beige", color: "#D8C7A5" },
-  { label: "Navy", value: "navy", color: "#172A46" },
+  {
+    label: "Black",
+    value: "black",
+    color: "#111111",
+  },
+  {
+    label: "White",
+    value: "white",
+    color: "#FFFFFF",
+  },
+  {
+    label: "Sage Green",
+    value: "sage-green",
+    color: "#A8B5A2",
+  },
+  {
+    label: "Deep Forest",
+    value: "deep-forest",
+    color: "#12372A",
+  },
+  {
+    label: "Beige",
+    value: "beige",
+    color: "#D8C7A5",
+  },
+  {
+    label: "Navy",
+    value: "navy",
+    color: "#172A46",
+  },
 ];
 
-const FilterSection = ({ title, children, defaultOpen = true }) => {
+const FilterSection = ({
+  title,
+  children,
+  defaultOpen = true,
+}) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
@@ -89,9 +125,12 @@ const FilterSidebar = ({
 
   return (
     <aside className="w-full">
+      {/* Filter Header */}
       <div className="mb-2 flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-[#12372A]">Filters</h2>
+          <h2 className="text-lg font-semibold text-[#12372A]">
+            Filters
+          </h2>
 
           {activeFilterCount > 0 && (
             <p className="mt-1 text-xs text-[#68736A]">
@@ -105,7 +144,7 @@ const FilterSidebar = ({
           <button
             type="button"
             onClick={onClearFilters}
-            className="inline-flex items-center gap-1 text-xs font-semibold text-[#12372A] hover:text-[#B59A63]"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-[#12372A] transition-colors hover:text-[#B59A63]"
           >
             <RotateCcw size={13} />
             Clear
@@ -113,6 +152,7 @@ const FilterSidebar = ({
         )}
       </div>
 
+      {/* Category */}
       <FilterSection title="Category">
         <div className="space-y-3">
           {categoryOptions.map((category) => (
@@ -122,9 +162,14 @@ const FilterSidebar = ({
             >
               <input
                 type="checkbox"
-                checked={activeFilters.categories.includes(category.value)}
+                checked={activeFilters.categories.includes(
+                  category.value,
+                )}
                 onChange={() =>
-                  toggleArrayValue("categories", category.value)
+                  toggleArrayValue(
+                    "categories",
+                    category.value,
+                  )
                 }
                 className="h-4 w-4 accent-[#12372A]"
               />
@@ -135,16 +180,20 @@ const FilterSidebar = ({
         </div>
       </FilterSection>
 
+      {/* Size */}
       <FilterSection title="Size">
         <div className="flex flex-wrap gap-2">
           {sizeOptions.map((size) => {
-            const isSelected = activeFilters.sizes.includes(size);
+            const isSelected =
+              activeFilters.sizes.includes(size);
 
             return (
               <button
                 key={size}
                 type="button"
-                onClick={() => toggleArrayValue("sizes", size)}
+                onClick={() =>
+                  toggleArrayValue("sizes", size)
+                }
                 className={`flex h-10 min-w-11 items-center justify-center border px-3 text-xs font-medium transition ${
                   isSelected
                     ? "border-[#12372A] bg-[#12372A] text-white"
@@ -158,16 +207,23 @@ const FilterSidebar = ({
         </div>
       </FilterSection>
 
+      {/* Color */}
       <FilterSection title="Color">
         <div className="space-y-3">
           {colorOptions.map((color) => {
-            const isSelected = activeFilters.colors.includes(color.value);
+            const isSelected =
+              activeFilters.colors.includes(color.value);
 
             return (
               <button
                 key={color.value}
                 type="button"
-                onClick={() => toggleArrayValue("colors", color.value)}
+                onClick={() =>
+                  toggleArrayValue(
+                    "colors",
+                    color.value,
+                  )
+                }
                 className="flex w-full items-center gap-3 text-left text-sm text-[#68736A]"
               >
                 <span
@@ -176,7 +232,9 @@ const FilterSidebar = ({
                       ? "border-[#12372A] ring-2 ring-[#B59A63] ring-offset-1"
                       : "border-[#DCE2D8]"
                   }`}
-                  style={{ backgroundColor: color.color }}
+                  style={{
+                    backgroundColor: color.color,
+                  }}
                 />
 
                 <span>{color.label}</span>
@@ -186,6 +244,7 @@ const FilterSidebar = ({
         </div>
       </FilterSection>
 
+      {/* Price Range */}
       <FilterSection title="Price Range">
         <div className="space-y-4">
           <input
@@ -204,13 +263,24 @@ const FilterSidebar = ({
           />
 
           <div className="flex items-center justify-between text-xs text-[#68736A]">
-            <span>₹{activeFilters.priceRange[0].toLocaleString("en-IN")}</span>
+            <span>
+              ₹
+              {activeFilters.priceRange[0].toLocaleString(
+                "en-IN",
+              )}
+            </span>
 
-            <span>₹{activeFilters.priceRange[1].toLocaleString("en-IN")}</span>
+            <span>
+              ₹
+              {activeFilters.priceRange[1].toLocaleString(
+                "en-IN",
+              )}
+            </span>
           </div>
         </div>
       </FilterSection>
 
+      {/* Availability */}
       <FilterSection title="Availability">
         <div className="space-y-3">
           <label className="flex cursor-pointer items-center gap-3 text-sm text-[#68736A]">
@@ -218,12 +288,18 @@ const FilterSidebar = ({
               type="radio"
               name="availability"
               value="all"
-              checked={activeFilters.availability === "all"}
+              checked={
+                activeFilters.availability === "all"
+              }
               onChange={(event) =>
-                updateFilter("availability", event.target.value)
+                updateFilter(
+                  "availability",
+                  event.target.value,
+                )
               }
               className="accent-[#12372A]"
             />
+
             All Products
           </label>
 
@@ -232,12 +308,19 @@ const FilterSidebar = ({
               type="radio"
               name="availability"
               value="in-stock"
-              checked={activeFilters.availability === "in-stock"}
+              checked={
+                activeFilters.availability ===
+                "in-stock"
+              }
               onChange={(event) =>
-                updateFilter("availability", event.target.value)
+                updateFilter(
+                  "availability",
+                  event.target.value,
+                )
               }
               className="accent-[#12372A]"
             />
+
             In Stock
           </label>
 
@@ -246,12 +329,19 @@ const FilterSidebar = ({
               type="radio"
               name="availability"
               value="out-of-stock"
-              checked={activeFilters.availability === "out-of-stock"}
+              checked={
+                activeFilters.availability ===
+                "out-of-stock"
+              }
               onChange={(event) =>
-                updateFilter("availability", event.target.value)
+                updateFilter(
+                  "availability",
+                  event.target.value,
+                )
               }
               className="accent-[#12372A]"
             />
+
             Out of Stock
           </label>
         </div>

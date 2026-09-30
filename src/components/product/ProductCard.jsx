@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Heart, ImageOff, ShoppingBag } from "lucide-react";
+import {
+  ArrowUpRight,
+  Heart,
+  ImageOff,
+  ShoppingBag,
+} from "lucide-react";
 
 const FALLBACK_IMAGE =
-  "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85";
+  "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=85";
 
 const formatPrice = (price) => {
   const numericPrice = Number(price);
@@ -31,8 +36,8 @@ const ProductCard = ({
   const {
     id,
     slug,
-    name = "Untitled Product",
-    category = "Collection",
+    name = "Untitled Shirt",
+    category = "Shirts",
     price,
     originalPrice,
     image,
@@ -68,7 +73,7 @@ const ProductCard = ({
       : null;
 
   return (
-    <article className="group flex min-w-0 h-full flex-col">
+    <article className="group flex h-full min-w-0 flex-col">
       {/* Product Image Area */}
       <div className="relative w-full overflow-hidden bg-[#F1F3EC]">
         <Link
@@ -76,7 +81,6 @@ const ProductCard = ({
           aria-label={`View ${name}`}
           className="relative block aspect-[0.82] w-full overflow-hidden"
         >
-          {/* Loading Placeholder */}
           {!imageLoaded && !imageError && (
             <div
               className="absolute inset-0 animate-pulse bg-[#DCE2D8]"
@@ -84,7 +88,6 @@ const ProductCard = ({
             />
           )}
 
-          {/* Primary Image */}
           {imageError ? (
             <div className="flex h-full w-full flex-col items-center justify-center bg-[#E8EDE4] px-4 text-center text-[#68736A]">
               <ImageOff size={28} strokeWidth={1.3} aria-hidden="true" />
@@ -108,7 +111,6 @@ const ProductCard = ({
             />
           )}
 
-          {/* Hover Image */}
           {secondaryImage && !hoverImageError && !imageError && (
             <img
               src={secondaryImage}
@@ -141,7 +143,7 @@ const ProductCard = ({
           </span>
         )}
 
-        {/* Wishlist Button */}
+        {/* Wishlist */}
         {onToggleWishlist && (
           <button
             type="button"
@@ -176,7 +178,6 @@ const ProductCard = ({
               className="flex min-h-11 min-w-0 flex-1 items-center justify-center gap-2 bg-white px-3 py-3 text-xs font-semibold text-[#12372A] transition-colors duration-300 hover:bg-[#12372A] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63]"
             >
               <ShoppingBag size={15} strokeWidth={1.6} aria-hidden="true" />
-
               <span>Add to Bag</span>
             </button>
 
@@ -244,7 +245,6 @@ const ProductCard = ({
             className="mt-4 flex min-h-11 w-full items-center justify-center gap-2 border border-[#DCE2D8] px-4 py-3 text-xs font-semibold text-[#12372A] transition-colors duration-300 hover:bg-[#12372A] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63] sm:hidden"
           >
             <ShoppingBag size={15} strokeWidth={1.6} aria-hidden="true" />
-
             <span>Add to Bag</span>
           </button>
         )}

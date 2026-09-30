@@ -10,28 +10,28 @@ import ProductAccordion from "../components/product/ProductAccordion";
 
 const product = {
   id: 1,
-  name: "Essential Oversized T-Shirt",
-  category: "T-Shirts",
-  price: 1499,
-  originalPrice: 1999,
+  name: "Classic Tailored Formal Shirt",
+  category: "Formal Shirts",
+  price: 2199,
+  originalPrice: 2799,
   description:
-    "A relaxed everyday essential crafted for comfort, confidence, and effortless styling.",
+    "A refined formal shirt designed with a clean silhouette, premium feel, and understated Black Creed character.",
   images: [
     "/images/product-1.jpg",
     "/images/product-1-hover.jpg",
     "/images/product-1-detail.jpg",
   ],
-  sizes: ["S", "M", "L", "XL"],
+  sizes: ["S", "M", "L", "XL", "XXL"],
   colors: [
+    { name: "Ivory", value: "#FAF8F2" },
     { name: "Deep Forest", value: "#12372A" },
     { name: "Black", value: "#202923" },
-    { name: "Ivory", value: "#FAF8F2" },
   ],
   details: [
     {
       title: "Product Details",
       content:
-        "Relaxed oversized fit, premium fabric, ribbed neckline, and durable stitching.",
+        "Tailored shirt silhouette, premium fabric, structured collar, refined finishing, and durable stitching.",
     },
     {
       title: "Shipping & Delivery",
@@ -62,7 +62,7 @@ const ProductDetails = () => {
     }
 
     const existingCart = JSON.parse(
-      localStorage.getItem("blackCreedCart") || "[]"
+      localStorage.getItem("blackCreedCart") || "[]",
     );
 
     const cartItem = {
@@ -78,7 +78,7 @@ const ProductDetails = () => {
       (item) =>
         item.id === cartItem.id &&
         item.size === cartItem.size &&
-        item.color === cartItem.color
+        item.color === cartItem.color,
     );
 
     let updatedCart;
@@ -92,7 +92,7 @@ const ProductDetails = () => {
               ...item,
               quantity: item.quantity + quantity,
             }
-          : item
+          : item,
       );
     } else {
       updatedCart = [...existingCart, cartItem];
@@ -126,7 +126,7 @@ const ProductDetails = () => {
               {product.name}
             </h1>
 
-            <div className="mt-5 flex items-center gap-3">
+            <div className="mt-5 flex flex-wrap items-center gap-3">
               <span className="text-2xl font-semibold text-[#12372A]">
                 ₹{product.price.toLocaleString("en-IN")}
               </span>
@@ -201,11 +201,7 @@ const ProductDetails = () => {
               </button>
 
               <div className="flex-1">
-                <Button
-                  block
-                  size="lg"
-                  onClick={handleAddToCart}
-                >
+                <Button block size="lg" onClick={handleAddToCart}>
                   <ShoppingBag size={18} />
                   {addedToCart ? "Added to Cart" : "Add to Cart"}
                 </Button>
@@ -214,7 +210,7 @@ const ProductDetails = () => {
 
             {addedToCart && (
               <div className="mt-4 rounded-lg bg-[#F1F3EC] p-4 text-sm text-[#12372A]">
-                Product added to your cart.{" "}
+                Shirt added to your cart.{" "}
                 <Link
                   to="/cart"
                   className="font-semibold underline underline-offset-4"
@@ -239,4 +235,4 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;  
+export default ProductDetails;

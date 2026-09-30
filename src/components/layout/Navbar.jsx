@@ -12,12 +12,20 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const navigationLinks = [
   {
-    label: "Shop",
+    label: "Shop All Shirts",
     href: "/shop",
   },
   {
-    label: "Collections",
-    href: "/collections",
+    label: "Formal Shirts",
+    href: "/shop?category=formal",
+  },
+  {
+    label: "Casual Shirts",
+    href: "/shop?category=casual",
+  },
+  {
+    label: "Traditional Shirts",
+    href: "/shop?category=traditional",
   },
   {
     label: "New Arrivals",
@@ -33,9 +41,6 @@ function Navbar() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [cartCount, setCartCount] = React.useState(0);
 
-  /*
-   * Update cart count whenever cart data changes.
-   */
   React.useEffect(() => {
     const updateCartCount = () => {
       try {
@@ -70,9 +75,6 @@ function Navbar() {
     };
   }, []);
 
-  /*
-   * Prevent background page scrolling when mobile menu is open.
-   */
   React.useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -85,9 +87,6 @@ function Navbar() {
     };
   }, [isMobileMenuOpen]);
 
-  /*
-   * Close mobile menu or search panel using Escape key.
-   */
   React.useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -118,16 +117,8 @@ function Navbar() {
     setSearchQuery("");
   };
 
-  const openMobileMenu = () => {
-    setIsMobileMenuOpen(true);
-  };
-
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
-  };
-
-  const toggleSearch = () => {
-    setIsSearchOpen((previous) => !previous);
   };
 
   const navLinkClass = ({ isActive }) =>
@@ -144,7 +135,7 @@ function Navbar() {
   const mobileNavLinkClass = ({ isActive }) =>
     [
       "flex min-h-12 items-center justify-between border-b border-[#DCE2D8]",
-      "text-sm uppercase tracking-[0.12em] transition-colors duration-300",
+      "text-sm uppercase tracking-[0.08em] transition-colors duration-300",
       isActive ? "text-[#12372A]" : "text-[#68736A] hover:text-[#12372A]",
     ].join(" ");
 
@@ -153,10 +144,10 @@ function Navbar() {
       {/* Main Navbar */}
       <header className="bc-navbar sticky top-0 z-50 border-b border-[#DCE2D8] bg-[#FAF8F2]/95 backdrop-blur-md">
         <div className="bc-navbar-container mx-auto flex h-16 w-full max-w-[1600px] items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-10 xl:px-12">
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu */}
           <button
             type="button"
-            onClick={openMobileMenu}
+            onClick={() => setIsMobileMenuOpen(true)}
             aria-label="Open navigation menu"
             aria-expanded={isMobileMenuOpen}
             className="flex h-10 w-10 items-center justify-center text-[#12372A] transition-colors duration-300 hover:text-[#B59A63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63] lg:hidden"
@@ -183,7 +174,7 @@ function Navbar() {
           {/* Desktop Navigation */}
           <nav
             aria-label="Primary navigation"
-            className="ml-10 hidden items-center gap-7 lg:flex xl:ml-14 xl:gap-9"
+            className="ml-10 hidden items-center gap-6 lg:flex xl:ml-14 xl:gap-8"
           >
             {navigationLinks.map((link) => (
               <NavLink key={link.label} to={link.href} className={navLinkClass}>
@@ -192,11 +183,11 @@ function Navbar() {
             ))}
           </nav>
 
-          {/* Action Buttons */}
+          {/* Actions */}
           <div className="ml-auto flex items-center gap-0.5 sm:gap-1 lg:gap-2">
             <button
               type="button"
-              onClick={toggleSearch}
+              onClick={() => setIsSearchOpen((previous) => !previous)}
               aria-label={isSearchOpen ? "Close search" : "Open search"}
               aria-expanded={isSearchOpen}
               className="flex h-10 w-10 items-center justify-center text-[#12372A] transition-colors duration-300 hover:text-[#B59A63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63]"
@@ -211,7 +202,7 @@ function Navbar() {
             <Link
               to="/account"
               aria-label="Account"
-              className="hidden h-10 w-10 items-center justify-center text-[#12372A] transition-colors duration-300 hover:text-[#B59A63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63] sm:flex"
+              className="hidden h-10 w-10 items-center justify-center text-[#12372A] transition-colors duration-300 hover:text-[#B59A63] sm:flex"
             >
               <UserRound size={20} strokeWidth={1.5} />
             </Link>
@@ -219,7 +210,7 @@ function Navbar() {
             <Link
               to="/wishlist"
               aria-label="Wishlist"
-              className="hidden h-10 w-10 items-center justify-center text-[#12372A] transition-colors duration-300 hover:text-[#B59A63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63] sm:flex"
+              className="hidden h-10 w-10 items-center justify-center text-[#12372A] transition-colors duration-300 hover:text-[#B59A63] sm:flex"
             >
               <Heart size={20} strokeWidth={1.5} />
             </Link>
@@ -227,7 +218,7 @@ function Navbar() {
             <Link
               to="/cart"
               aria-label={`Shopping bag with ${cartCount} items`}
-              className="relative flex h-10 w-10 items-center justify-center text-[#12372A] transition-colors duration-300 hover:text-[#B59A63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63]"
+              className="relative flex h-10 w-10 items-center justify-center text-[#12372A] transition-colors duration-300 hover:text-[#B59A63]"
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
 
@@ -240,7 +231,7 @@ function Navbar() {
           </div>
         </div>
 
-        {/* Search Panel */}
+        {/* Search */}
         {isSearchOpen && (
           <div className="border-t border-[#DCE2D8] bg-[#F1F3EC] px-4 py-4 sm:px-6 sm:py-5 lg:px-10">
             <form
@@ -257,15 +248,15 @@ function Navbar() {
                 type="search"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search shirts, trousers, collections..."
-                aria-label="Search products"
+                placeholder="Search shirts..."
+                aria-label="Search shirts"
                 autoFocus
                 className="bc-input min-w-0 flex-1 border-0 border-b border-[#B59A63] bg-transparent px-0 py-2 text-sm text-[#202923] outline-none placeholder:text-[#68736A]"
               />
 
               <button
                 type="submit"
-                className="hidden shrink-0 bg-[#12372A] px-4 py-2.5 text-[10px] uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:bg-[#0B261C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63] sm:block"
+                className="hidden shrink-0 bg-[#12372A] px-4 py-2.5 text-[10px] uppercase tracking-[0.12em] text-white sm:block"
               >
                 Search
               </button>
@@ -274,7 +265,7 @@ function Navbar() {
                 type="button"
                 onClick={() => setIsSearchOpen(false)}
                 aria-label="Close search"
-                className="flex h-9 w-9 shrink-0 items-center justify-center text-[#68736A] transition-colors duration-300 hover:text-[#12372A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63]"
+                className="flex h-9 w-9 shrink-0 items-center justify-center text-[#68736A]"
               >
                 <X size={18} strokeWidth={1.5} />
               </button>
@@ -284,15 +275,15 @@ function Navbar() {
               type="button"
               onClick={handleSearchSubmit}
               disabled={!searchQuery.trim()}
-              className="mx-auto mt-3 block w-full max-w-3xl bg-[#12372A] px-4 py-2.5 text-[10px] uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:bg-[#0B261C] disabled:cursor-not-allowed disabled:opacity-40 sm:hidden"
+              className="mx-auto mt-3 block w-full max-w-3xl bg-[#12372A] px-4 py-2.5 text-[10px] uppercase tracking-[0.12em] text-white disabled:opacity-40 sm:hidden"
             >
-              Search Products
+              Search Shirts
             </button>
           </div>
         )}
       </header>
 
-      {/* Mobile Navigation Overlay */}
+      {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 z-[100] bg-[#12372A]/60 lg:hidden"
@@ -305,7 +296,6 @@ function Navbar() {
             className="flex h-full w-[88%] max-w-sm flex-col overflow-y-auto bg-[#FAF8F2] p-5 shadow-2xl sm:p-6"
             onClick={(event) => event.stopPropagation()}
           >
-            {/* Mobile Drawer Header */}
             <div className="mb-8 flex items-center justify-between border-b border-[#DCE2D8] pb-5">
               <Link
                 to="/"
@@ -319,14 +309,16 @@ function Navbar() {
                 type="button"
                 onClick={closeMobileMenu}
                 aria-label="Close navigation menu"
-                className="flex h-10 w-10 items-center justify-center text-[#12372A] transition-colors duration-300 hover:text-[#B59A63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B59A63]"
+                className="flex h-10 w-10 items-center justify-center text-[#12372A]"
               >
                 <X size={22} strokeWidth={1.5} />
               </button>
             </div>
 
-            {/* Mobile Navigation Links */}
-            <nav aria-label="Mobile navigation" className="flex flex-col">
+            <nav
+              aria-label="Mobile navigation"
+              className="flex flex-col"
+            >
               {navigationLinks.map((link) => (
                 <NavLink
                   key={link.label}
@@ -350,11 +342,7 @@ function Navbar() {
                 className={mobileNavLinkClass}
               >
                 <span>Account</span>
-                <ChevronDown
-                  size={16}
-                  strokeWidth={1.5}
-                  className="-rotate-90"
-                />
+                <ChevronDown size={16} className="-rotate-90" />
               </NavLink>
 
               <NavLink
@@ -363,11 +351,7 @@ function Navbar() {
                 className={mobileNavLinkClass}
               >
                 <span>Wishlist</span>
-                <ChevronDown
-                  size={16}
-                  strokeWidth={1.5}
-                  className="-rotate-90"
-                />
+                <ChevronDown size={16} className="-rotate-90" />
               </NavLink>
 
               <NavLink
@@ -376,22 +360,17 @@ function Navbar() {
                 className={mobileNavLinkClass}
               >
                 <span>Shopping Bag</span>
-                <ChevronDown
-                  size={16}
-                  strokeWidth={1.5}
-                  className="-rotate-90"
-                />
+                <ChevronDown size={16} className="-rotate-90" />
               </NavLink>
             </nav>
 
-            {/* Mobile Drawer Footer */}
             <div className="mt-auto border-t border-[#DCE2D8] pt-6">
               <p className="text-[10px] uppercase tracking-[0.16em] text-[#B59A63]">
                 Modern Heritage
               </p>
 
               <p className="mt-2 max-w-xs text-sm leading-6 text-[#68736A]">
-                Refined essentials shaped for everyday expression.
+                Refined shirts shaped for everyday expression.
               </p>
             </div>
           </aside>

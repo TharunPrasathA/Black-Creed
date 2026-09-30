@@ -5,35 +5,27 @@ import { ArrowUpRight, ImageOff } from "lucide-react";
 const defaultCategories = [
   {
     id: 1,
-    name: "Shirts",
-    subtitle: "Refined everyday essentials",
-    href: "/shop?category=shirts",
+    name: "Formal Shirts",
+    subtitle: "Refined silhouettes for every formal occasion",
+    href: "/shop?category=formal",
     image:
-      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=1200&q=85",
   },
   {
     id: 2,
-    name: "T-Shirts",
-    subtitle: "Comfort meets character",
-    href: "/shop?category=t-shirts",
+    name: "Casual Shirts",
+    subtitle: "Effortless everyday style with character",
+    href: "/shop?category=casual",
     image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1602810319428-019690571b5b?auto=format&fit=crop&w=1200&q=85",
   },
   {
     id: 3,
-    name: "Trousers",
-    subtitle: "Designed for movement",
-    href: "/shop?category=trousers",
+    name: "Traditional Shirts",
+    subtitle: "Modern heritage inspired by tradition",
+    href: "/shop?category=traditional",
     image:
-      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=1200&q=85",
-  },
-  {
-    id: 4,
-    name: "Outerwear",
-    subtitle: "Layers with distinction",
-    href: "/shop?category=outerwear",
-    image:
-      "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=1200&q=85",
   },
 ];
 
@@ -98,8 +90,8 @@ const CategoryCard = ({ category }) => {
 };
 
 const CategoryGrid = ({
-  title = "Explore Categories",
-  subtitle = "Discover pieces made to become part of your everyday identity.",
+  title = "Shop Shirts by Style",
+  subtitle = "Discover refined shirts designed for formal occasions, everyday expression, and modern heritage.",
   categories = defaultCategories,
 }) => {
   return (
@@ -107,7 +99,7 @@ const CategoryGrid = ({
       <div className="bc-section-inner">
         <div className="bc-section-header">
           <div className="bc-section-header-left">
-            <p className="bc-eyebrow">Shop by style</p>
+            <p className="bc-eyebrow">Explore Our Shirts</p>
 
             <h2 className="bc-section-title">{title}</h2>
           </div>
@@ -117,7 +109,7 @@ const CategoryGrid = ({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-5">
           {categories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}

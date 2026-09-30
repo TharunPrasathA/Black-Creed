@@ -8,50 +8,50 @@ import EditorialSection from "../components/home/EditorialSection";
 const featuredProducts = [
   {
     id: 1,
-    name: "Essential Oversized T-Shirt",
-    category: "T-Shirts",
-    price: 1499,
-    originalPrice: 1999,
+    name: "Classic Tailored Formal Shirt",
+    category: "Formal Shirts",
+    price: 2199,
+    originalPrice: 2799,
     image: "/images/product-1.jpg",
     hoverImage: "/images/product-1-hover.jpg",
     badge: "Bestseller",
-    href: "/product/essential-oversized-t-shirt",
-    colors: ["#12372A", "#202923", "#FAF8F2"],
+    href: "/product/classic-tailored-formal-shirt",
+    colors: ["#F1F3EC", "#FFFFFF", "#12372A"],
   },
   {
     id: 2,
-    name: "Classic Relaxed Shirt",
-    category: "Shirts",
-    price: 2199,
-    originalPrice: 2799,
+    name: "Relaxed Everyday Casual Shirt",
+    category: "Casual Shirts",
+    price: 1999,
+    originalPrice: 2499,
     image: "/images/product-2.jpg",
     hoverImage: "/images/product-2-hover.jpg",
     badge: "New",
-    href: "/product/classic-relaxed-shirt",
-    colors: ["#F1F3EC", "#68736A"],
+    href: "/product/relaxed-everyday-casual-shirt",
+    colors: ["#12372A", "#68736A", "#B59A63"],
   },
   {
     id: 3,
-    name: "Modern Straight Trousers",
-    category: "Trousers",
+    name: "Heritage Traditional Shirt",
+    category: "Traditional Shirts",
     price: 2499,
     originalPrice: 2999,
     image: "/images/product-3.jpg",
     hoverImage: "/images/product-3-hover.jpg",
-    href: "/product/modern-straight-trousers",
-    colors: ["#202923", "#B59A63"],
+    href: "/product/heritage-traditional-shirt",
+    colors: ["#FAF8F2", "#12372A"],
   },
   {
     id: 4,
-    name: "Heritage Overshirt",
-    category: "Outerwear",
-    price: 3299,
-    originalPrice: 3999,
+    name: "Signature Modern Shirt",
+    category: "Casual Shirts",
+    price: 2299,
+    originalPrice: 2799,
     image: "/images/product-4.jpg",
     hoverImage: "/images/product-4-hover.jpg",
     badge: "Limited",
-    href: "/product/heritage-overshirt",
-    colors: ["#12372A", "#B59A63"],
+    href: "/product/signature-modern-shirt",
+    colors: ["#12372A", "#202923"],
   },
 ];
 
@@ -62,9 +62,9 @@ const Home = () => {
       <HeroSection
         eyebrow="BLACK CREED / MODERN HERITAGE"
         title="Wear Your Own Legacy"
-        description="Timeless essentials designed for those who value individuality, confidence, and understated luxury."
+        description="Timeless shirts designed for those who value individuality, confidence, and understated luxury."
         primaryAction={{
-          label: "Shop Collection",
+          label: "Shop Shirts",
           href: "/shop",
         }}
         secondaryAction={{
@@ -74,13 +74,13 @@ const Home = () => {
         backgroundImage="/images/hero-banner.jpg"
       />
 
-      {/* Categories */}
+      {/* Shirt Categories */}
       <CategoryGrid />
 
-      {/* Featured Products */}
+      {/* Featured Shirts */}
       <ProductCarousel
-        title="Featured Pieces"
-        subtitle="Everyday essentials with a refined edge."
+        title="Featured Shirts"
+        subtitle="Refined silhouettes designed for every expression."
         products={featuredProducts}
         viewAllHref="/shop"
       />
@@ -91,10 +91,10 @@ const Home = () => {
       {/* Collection Banner */}
       <CollectionBanner
         eyebrow="THE NEW SEASON"
-        title="A New Chapter in Everyday Dressing"
-        description="Discover carefully considered silhouettes, premium textures, and versatile pieces."
+        title="A New Chapter in Shirt Dressing"
+        description="Discover carefully considered silhouettes, premium textures, and versatile shirts designed for the modern wardrobe."
         buttonLabel="Explore New Arrivals"
-        buttonHref="/shop?collection=new-arrivals"
+        buttonHref="/shop?sort=newest"
         image="/images/collection-banner.jpg"
       />
 
